@@ -1,7 +1,8 @@
-package com.barbaud.florent.mareu;
+package com.barbaud.florent.mareu.controler;
 
 import android.os.Bundle;
 
+import com.barbaud.florent.mareu.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_filter) {
             return true;
         }
 
