@@ -1,5 +1,7 @@
 package com.barbaud.florent.mareu.API;
 
+import android.util.Log;
+
 import com.barbaud.florent.mareu.model.Reunion;
 import com.barbaud.florent.mareu.model.Salle;
 
@@ -20,6 +22,7 @@ public class ReunionFictif {
     );
 
    public static List<Reunion> generateReunion() {
-        return new ArrayList<>(REUNION_LIST);
+       Log.i("DATA", "generateReunion: Liste fictif genere");
+       return new ArrayList<>(REUNION_LIST);
     }
 }

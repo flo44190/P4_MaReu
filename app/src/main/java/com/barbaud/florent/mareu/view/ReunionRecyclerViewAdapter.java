@@ -1,5 +1,6 @@
 package com.barbaud.florent.mareu.view;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

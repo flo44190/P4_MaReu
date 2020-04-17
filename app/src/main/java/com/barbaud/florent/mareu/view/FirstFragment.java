@@ -1,5 +1,6 @@
 package com.barbaud.florent.mareu.view;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,8 +35,8 @@ public class FirstFragment extends Fragment {
 
     private void configureRecycleView() {
         this.mReunions = ReunionFictif.generateReunion();
-        this.mAdapter = new ReunionRecyclerViewAdapter(this.mReunions);
+        this.mAdapter = new ReunionRecyclerViewAdapter(mReunions);
         this.mRecyclerView.setAdapter(this.mAdapter);
-        this.mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        this.mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 }
