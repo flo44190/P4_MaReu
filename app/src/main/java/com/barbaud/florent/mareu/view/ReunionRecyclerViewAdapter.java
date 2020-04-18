@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.barbaud.florent.mareu.API.ReunionFictif;
 import com.barbaud.florent.mareu.R;
 import com.barbaud.florent.mareu.model.Reunion;
 
@@ -30,8 +31,8 @@ public class ReunionRecyclerViewAdapter extends RecyclerView.Adapter<ReunionRecy
 
     @Override
     public ViewHolder onCreateViewHolder (ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_first, parent, false);
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+         View view = layoutInflater.inflate(R.layout.fragment_first, parent, false);
         return new ViewHolder(view);
     }
 

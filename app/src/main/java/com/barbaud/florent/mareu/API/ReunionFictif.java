@@ -15,10 +15,10 @@ import java.util.List;
 public class ReunionFictif {
 
     public static final List<Reunion> REUNION_LIST = Arrays.asList(
-           new Reunion(Salle.A,"Tittle", "18h30","20/04/20", "Participant 1 - Participant 2"),
-            new Reunion(Salle.B,"Tittle", "18h30","20/04/20", "Participant 1 - Participant 2"),
-            new Reunion(Salle.C,"Tittle", "18h30","20/04/20", "Participant 1 - Participant 2"),
-            new Reunion(Salle.D,"Tittle", "18h30","20/04/20", "Participant 1 - Participant 2")
+           new Reunion(Salle.A,"Tittle 1", "18h30","20/04/20", "Participant 1 - Participant 2"),
+            new Reunion(Salle.B,"Tittle 2", "18h30","20/04/20", "Participant 1 - Participant 2"),
+            new Reunion(Salle.C,"Tittle 3", "18h30","20/04/20", "Participant 1 - Participant 2"),
+            new Reunion(Salle.D,"Tittle 4", "18h30","20/04/20", "Participant 1 - Participant 2")
     );
 
    public static List<Reunion> generateReunion() {
