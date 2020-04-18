@@ -1,5 +1,7 @@
 package com.barbaud.florent.mareu.model;
 
+import android.graphics.Color;
+
 import com.barbaud.florent.mareu.R;
 
 /**
@@ -7,24 +9,30 @@ import com.barbaud.florent.mareu.R;
  */
 public enum Salle {
 
-    A ("Salle A"),
-    B ("Salle B"),
-    C ("Salle C"),
-    D ("Salle D"),
-    E ("Salle E"),
-    F ("Salle J"),
-    G ("Salle G"),
-    H ("Salle H"),
-    I ("Salle I"),
-    J ("Salle J");
+    A ("Salle A", R.color.A),
+    B ("Salle B", R.color.B),
+    C ("Salle C", R.color.C),
+    D ("Salle D", R.color.D),
+    E ("Salle E", R.color.E),
+    F ("Salle J", R.color.F),
+    G ("Salle G", R.color.G),
+    H ("Salle H", R.color.H),
+    I ("Salle I", R.color.I),
+    J ("Salle J", R.color.J);
 
     private String name;
+    private int color;
 
-    Salle(String name){
+    Salle(String name, int mColor){
         this.name = name;
+        this.color = mColor;
     }
 
     public String getName() {
         return name;
+    }
+
+    public int getColor() {
+        return color;
     }
 }

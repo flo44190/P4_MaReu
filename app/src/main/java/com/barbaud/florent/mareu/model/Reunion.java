@@ -1,5 +1,7 @@
 package com.barbaud.florent.mareu.model;
 
+import java.util.List;
+
 /**
  * Created by florent on 16/04/2020.
  */
@@ -10,23 +12,25 @@ public class Reunion {
     private String Tittle;
     private String Horaire;
     private String Date;
-    private String Participant;
+    private List<Participant> ParticipantPresent;
 
-    public Reunion(Salle salle, String tittle, String horaire, String date, String participant) {
+    public Reunion(Salle salle, String tittle, String horaire, String date, List<Participant> participant) {
         mSalle = salle;
         Tittle = tittle;
         Horaire = horaire;
         Date = date;
-        Participant = participant;
+        ParticipantPresent = participant;
     }
 
-    public String getSalle() {
-        return mSalle.getName();
+    public int getSallecolor() {
+        return mSalle.getColor();
     }
 
     public void setSalle(Salle salle) {
         mSalle = salle;
     }
+
+    public String getSalle() {return mSalle.getName();}
 
     public String getTittle() {
         return Tittle;
@@ -52,12 +56,12 @@ public class Reunion {
         Date = date;
     }
 
-    public String getParticipant() {
-        return Participant;
+    public List<Participant> getParticipantPresent() {
+        return ParticipantPresent;
     }
 
-    public void setParticipant(String participant) {
-        Participant = participant;
+    public void setParticipantPresent(List<Participant> participantPresent) {
+        ParticipantPresent = participantPresent;
     }
 }
 

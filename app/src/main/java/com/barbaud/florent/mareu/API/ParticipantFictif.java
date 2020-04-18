@@ -31,7 +31,7 @@ public class ParticipantFictif {
                     "06 12 30 24 10", "juliette@lamzone.com")
     );
 
-    public static List<Participant> generateParticipant(){
+    public static List<Participant> generateParticipant() {
         Log.i("DATA", "ParticipantFictif : generate Participant");
         return new ArrayList<>(PARTICIPANT_LIST);
     }

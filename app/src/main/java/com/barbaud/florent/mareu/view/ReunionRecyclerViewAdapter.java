@@ -1,5 +1,6 @@
 package com.barbaud.florent.mareu.view;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.barbaud.florent.mareu.R;
+import com.barbaud.florent.mareu.model.Participant;
 import com.barbaud.florent.mareu.model.Reunion;
 
 import java.util.List;
@@ -38,8 +40,8 @@ public class ReunionRecyclerViewAdapter extends RecyclerView.Adapter<ReunionRecy
     @Override
     public void onBindViewHolder (final ViewHolder holder, int position) {
         Reunion reunion = mReunions.get(position);
+        holder.mSalle.setBackgroundResource(reunion.getSallecolor());
         holder.mTittle.setText( reunion.getTittle() + " - " + reunion.getHoraire());
-        holder.mParticipant.setText(reunion.getParticipant());
     }
 
     @Override
@@ -49,6 +51,8 @@ public class ReunionRecyclerViewAdapter extends RecyclerView.Adapter<ReunionRecy
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.Fragment_first_Salle_img)
+        ImageView mSalle;
         @BindView(R.id.Fragment_first_Tittle_txt)
         TextView mTittle;
         @BindView(R.id.Fragment_first_Participant_txt)
