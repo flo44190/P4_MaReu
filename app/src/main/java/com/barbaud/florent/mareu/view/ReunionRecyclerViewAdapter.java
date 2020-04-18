@@ -1,15 +1,14 @@
 package com.barbaud.florent.mareu.view;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.barbaud.florent.mareu.API.ReunionFictif;
 import com.barbaud.florent.mareu.R;
 import com.barbaud.florent.mareu.model.Reunion;
 
@@ -39,7 +38,7 @@ public class ReunionRecyclerViewAdapter extends RecyclerView.Adapter<ReunionRecy
     @Override
     public void onBindViewHolder (final ViewHolder holder, int position) {
         Reunion reunion = mReunions.get(position);
-        holder.mTittle.setText(reunion.getTittle());
+        holder.mTittle.setText( reunion.getTittle() + " - " + reunion.getHoraire());
         holder.mParticipant.setText(reunion.getParticipant());
     }
 

@@ -1,5 +1,7 @@
 package com.barbaud.florent.mareu.model;
 
+import com.barbaud.florent.mareu.R;
+
 /**
  * Created by florent on 17/04/2020.
  */
