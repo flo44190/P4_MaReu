@@ -50,6 +50,8 @@ public class ReunionRecyclerViewAdapter extends RecyclerView.Adapter<ReunionRecy
     }
 
 
+
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.Fragment_first_Salle_img)
         ImageView mSalle;

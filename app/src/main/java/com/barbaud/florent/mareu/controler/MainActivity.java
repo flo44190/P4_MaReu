@@ -5,9 +5,9 @@ import android.os.Bundle;
 import com.barbaud.florent.mareu.API.ReunionFictif;
 import com.barbaud.florent.mareu.R;
 import com.barbaud.florent.mareu.model.Reunion;
+import com.barbaud.florent.mareu.view.ui.add.AddReunion;
 import com.barbaud.florent.mareu.view.ReunionRecyclerViewAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -40,8 +40,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                AddReunion();
             }
         });
     }
@@ -66,6 +65,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void AddReunion() {
+        AddReunion.navigate(this);
     }
 
 }
