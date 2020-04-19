@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -35,8 +36,8 @@ public class AddReunion extends AppCompatActivity {
 
     private void displayDateTime (){
         Date = Calendar.getInstance();
-        mDate.setText(Date.get(Calendar.DAY_OF_MONTH)+"/"+Date.get(Calendar.MONTH)+"/"+Date.get(Calendar.YEAR));
-        mHoraire.setText(Date.get(Calendar.HOUR_OF_DAY)+":"+Date.get(Calendar.MINUTE));
+        Log.i("DATA", Date.get(Calendar.DAY_OF_MONTH)+"/"+Date.get(Calendar.MONTH)+"/"+Date.get(Calendar.YEAR));
+        Log.i("DATA", Date.get(Calendar.HOUR_OF_DAY)+":"+Date.get(Calendar.MINUTE));
     }
 
     @Override
