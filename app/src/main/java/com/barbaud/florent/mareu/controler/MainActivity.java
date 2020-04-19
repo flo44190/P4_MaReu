@@ -5,7 +5,6 @@ import android.os.Bundle;
 import com.barbaud.florent.mareu.API.ReunionFictif;
 import com.barbaud.florent.mareu.R;
 import com.barbaud.florent.mareu.model.Reunion;
-import com.barbaud.florent.mareu.view.ui.add.AddReunion;
 import com.barbaud.florent.mareu.view.ReunionRecyclerViewAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
