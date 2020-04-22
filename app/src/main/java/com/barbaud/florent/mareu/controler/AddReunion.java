@@ -41,10 +41,12 @@ public class AddReunion extends AppCompatActivity {
         mDate = findViewById(R.id.activity_add_date_txt);
         mHoraire = findViewById(R.id.activity_add_horaire_txt);
         mBack = findViewById(R.id.activity_add_back_btn);
+
         Spinner spinner = (Spinner) findViewById(R.id.activity_add_salle_spinner);
         spinner.setAdapter(new ArrayAdapter<Salle>(this, android.R.layout.simple_list_item_1,Salle.values()));
 
         displayDateTime();
+
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,11 +72,13 @@ public class AddReunion extends AppCompatActivity {
         DialogFragment newFragment = new TimePickerFragment();
         newFragment.show(getSupportFragmentManager(), "timePicker");
     }
+
     // Selection de la date
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
+
     // Navigation vers cette activité
     public static void navigate(FragmentActivity activity) {
         Intent intent = new Intent(activity, AddReunion.class);

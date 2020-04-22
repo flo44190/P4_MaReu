@@ -1,6 +1,7 @@
 package com.barbaud.florent.mareu.view;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,13 +9,19 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.barbaud.florent.mareu.R;
 import com.barbaud.florent.mareu.model.Participant;
 import com.barbaud.florent.mareu.model.Reunion;
+import com.bumptech.glide.Glide;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,6 +32,8 @@ import butterknife.ButterKnife;
 public class ReunionRecyclerViewAdapter extends RecyclerView.Adapter<ReunionRecyclerViewAdapter.ViewHolder> {
 
     private final List<Reunion> mReunions;
+    private SimpleDateFormat JourMois = new SimpleDateFormat("dd-MMM-yyyy",Locale.getDefault());
+
 
     public ReunionRecyclerViewAdapter (List<Reunion> items){
         this.mReunions = items;
@@ -37,11 +46,14 @@ public class ReunionRecyclerViewAdapter extends RecyclerView.Adapter<ReunionRecy
         return new ViewHolder(view);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder (final ViewHolder holder, int position) {
         Reunion reunion = mReunions.get(position);
+        holder.mDate.setText(reunion.getJourMois());
         holder.mSalle.setBackgroundResource(reunion.getSallecolor());
-        holder.mTittle.setText( reunion.getTittle() + " - " + reunion.getHoraire());
+        holder.mTittle.setText( reunion.getTittle() + " - " + reunion.getHeures());
+        holder.mParticipant.setText(reunion.getParticipantMail(reunion.getParticipantPresent()));
     }
 
     @Override
@@ -50,11 +62,11 @@ public class ReunionRecyclerViewAdapter extends RecyclerView.Adapter<ReunionRecy
     }
 
 
-
-
     public static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.Fragment_first_Salle_img)
         ImageView mSalle;
+        @BindView(R.id.Fragment_first_Date_txt)
+        TextView mDate;
         @BindView(R.id.Fragment_first_Tittle_txt)
         TextView mTittle;
         @BindView(R.id.Fragment_first_Participant_txt)
