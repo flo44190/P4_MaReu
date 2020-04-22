@@ -45,7 +45,12 @@ public class AddReunion extends AppCompatActivity {
         spinner.setAdapter(new ArrayAdapter<Salle>(this, android.R.layout.simple_list_item_1,Salle.values()));
 
         displayDateTime();
-        mBack.setOnClickListener(Back);
+        mBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         mSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,33 +59,26 @@ public class AddReunion extends AppCompatActivity {
             }
         });
     }
-
+    // Affiche de la date et de l'heure actuel
     private void displayDateTime (){
         mDate.setText(Date.get(Calendar.DAY_OF_MONTH)+"/"+Date.get(Calendar.MONTH)+"/"+Date.get(Calendar.YEAR));
         mHoraire.setText(Date.get(Calendar.HOUR_OF_DAY)+":"+Date.get(Calendar.MINUTE));
     }
 
-
-    public static void navigate(FragmentActivity activity) {
-        Intent intent = new Intent(activity, AddReunion.class);
-        ActivityCompat.startActivity(activity, intent, null);
-    }
-
+    // Selection de l'heure
     public void showTimePickerDialog(View v) {
         DialogFragment newFragment = new TimePickerFragment();
         newFragment.show(getSupportFragmentManager(), "timePicker");
     }
-
+    // Selection de la date
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
-
-    private View.OnClickListener Back = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            finish();
-        }
-    };
+    // Navigation vers cette activité
+    public static void navigate(FragmentActivity activity) {
+        Intent intent = new Intent(activity, AddReunion.class);
+        ActivityCompat.startActivity(activity, intent, null);
+    }
 
 }
