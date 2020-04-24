@@ -1,27 +1,29 @@
 package com.barbaud.florent.mareu.controler;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.TimePicker;
 
 import com.barbaud.florent.mareu.R;
 import com.barbaud.florent.mareu.model.Salle;
-import com.barbaud.florent.mareu.view.ui.add.DatePickerFragment;
-import com.barbaud.florent.mareu.view.ui.add.TimePickerFragment;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class AddReunion extends AppCompatActivity {
@@ -30,6 +32,8 @@ public class AddReunion extends AppCompatActivity {
     private TextView mHoraire;
     private ImageButton mBack;
     private Button mSave;
+    private DatePickerDialog mDatePickerDialog;
+    private TimePickerDialog mTimePickerDialog;
 
     Calendar Date = Calendar.getInstance();
 
@@ -44,9 +48,41 @@ public class AddReunion extends AppCompatActivity {
 
         Spinner spinner = (Spinner) findViewById(R.id.activity_add_salle_spinner);
         spinner.setAdapter(new ArrayAdapter<Salle>(this, android.R.layout.simple_list_item_1,Salle.values()));
-
         displayDateTime();
 
+        mDate.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View v) {
+                int mYear = Date.get(Calendar.YEAR); // current year
+                int mMonth = Date.get(Calendar.MONTH); // current month
+                int mDay = Date.get(Calendar.DAY_OF_MONTH); // current day
+                mDatePickerDialog = new DatePickerDialog(AddReunion.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        // set day of month , month and year value in the edit text
+                        Date.set(year,month,dayOfMonth);
+                        displayDateTime();
+                    }
+                }, mYear, mMonth, mDay);
+                mDatePickerDialog.show();
+            }
+        });
+        mHoraire.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               int mHour = Date.get(Calendar.HOUR);
+               int mMinute = Date.get(Calendar.MINUTE);
+               mTimePickerDialog = new TimePickerDialog(AddReunion.this, new TimePickerDialog.OnTimeSetListener() {
+                   @Override
+                   public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                       Date.set(Calendar.YEAR,Calendar.MONTH,Calendar.DAY_OF_MONTH,hourOfDay,minute);
+                       displayDateTime();
+                   }
+               }, mHour, mMinute,true);
+               mTimePickerDialog.show();
+           }
+       });
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,20 +99,10 @@ public class AddReunion extends AppCompatActivity {
     }
     // Affiche de la date et de l'heure actuel
     private void displayDateTime (){
-        mDate.setText(Date.get(Calendar.DAY_OF_MONTH)+"/"+Date.get(Calendar.MONTH)+"/"+Date.get(Calendar.YEAR));
-        mHoraire.setText(Date.get(Calendar.HOUR_OF_DAY)+":"+Date.get(Calendar.MINUTE));
-    }
-
-    // Selection de l'heure
-    public void showTimePickerDialog(View v) {
-        DialogFragment newFragment = new TimePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "timePicker");
-    }
-
-    // Selection de la date
-    public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "datePicker");
+        SimpleDateFormat ddMMyyy = new SimpleDateFormat("dd MMM yyyy");
+        SimpleDateFormat HHmm = new SimpleDateFormat("HH:mm");
+        mDate.setText(ddMMyyy.format(Date.getTime()));
+        mHoraire.setText(HHmm.format(Date.getTime()));
     }
 
     // Navigation vers cette activité
