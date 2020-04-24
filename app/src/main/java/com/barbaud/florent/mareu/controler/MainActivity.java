@@ -13,10 +13,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        DisplayReunion(mReu);
 
         // Affichage du Recycler View
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.content_main_recyclerview);
@@ -71,6 +74,23 @@ public class MainActivity extends AppCompatActivity {
     // Fonction pour naviguer vers Add Reunion
     public void AddReunion() {
         AddReunion.navigate(this);
+    }
+
+    // Suppresion des reunion anterieur a la date du jours
+
+    private void DisplayReunion (List<Reunion> items){
+        Date date = new Date();
+        int n = 0;
+        for (int i = 0; i<items.size(); i++){
+            if (date.compareTo(items.get(i).getDate())>=0){
+                Log.i("DATA", "Suppresion de" +items.get(i).getTittle());
+                items.remove(items.get(i));
+                i--;
+            }
+            else {
+                Log.i("DATA", "Pas toucher: " +items.get(i).getTittle());
+            }
+        }
     }
 
 }

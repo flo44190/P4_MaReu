@@ -47,10 +47,10 @@ public class ReunionFictif {
     );
 
     public static final List<Reunion> REUNION_LIST = Arrays.asList(
-            new Reunion(Salle.A, "Tittle 1", new GregorianCalendar(2020,1,10,18,00), Reunion1),
-            new Reunion(Salle.B, "Tittle 2", new GregorianCalendar(2020,1,2,17,30), Reunion2),
-            new Reunion(Salle.C, "Tittle 3", new GregorianCalendar(2020,3,10,15,00), Reunion3),
-            new Reunion(Salle.D, "Tittle 4", new GregorianCalendar(2020,10,30,10,00), Reunion4)
+            new Reunion(Salle.A, "Janvier", new GregorianCalendar(2020,0,10,18,00), Reunion1),
+            new Reunion(Salle.B, "Fevrier", new GregorianCalendar(2020,1,2,17,30), Reunion2),
+            new Reunion(Salle.C, "Avril", new GregorianCalendar(2020,3,29,15,00), Reunion3),
+            new Reunion(Salle.D, "Juin", new GregorianCalendar(2020,5,30,10,00), Reunion4)
     );
 
 
