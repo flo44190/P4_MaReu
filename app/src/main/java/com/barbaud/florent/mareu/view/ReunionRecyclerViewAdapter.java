@@ -20,6 +20,9 @@ import com.bumptech.glide.Glide;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -32,7 +35,8 @@ import butterknife.ButterKnife;
 public class ReunionRecyclerViewAdapter extends RecyclerView.Adapter<ReunionRecyclerViewAdapter.ViewHolder> {
 
     private final List<Reunion> mReunions;
-    private SimpleDateFormat JourMois = new SimpleDateFormat("dd-MMM-yyyy",Locale.getDefault());
+    private SimpleDateFormat JourMois = new SimpleDateFormat("dd-MMM",Locale.getDefault());
+    private SimpleDateFormat HeureMinutes = new SimpleDateFormat("hh:mm", Locale.getDefault());
 
 
     public ReunionRecyclerViewAdapter (List<Reunion> items){
@@ -41,6 +45,7 @@ public class ReunionRecyclerViewAdapter extends RecyclerView.Adapter<ReunionRecy
 
     @Override
     public ViewHolder onCreateViewHolder (ViewGroup parent, int viewType) {
+        Collections.sort(mReunions, new ComparatorReunion());
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
          View view = layoutInflater.inflate(R.layout.fragment_first, parent, false);
         return new ViewHolder(view);
@@ -50,9 +55,9 @@ public class ReunionRecyclerViewAdapter extends RecyclerView.Adapter<ReunionRecy
     @Override
     public void onBindViewHolder (final ViewHolder holder, int position) {
         Reunion reunion = mReunions.get(position);
-        holder.mDate.setText(reunion.getJourMois());
+        holder.mDate.setText(JourMois.format(reunion.getDate()));
         holder.mSalle.setBackgroundResource(reunion.getSallecolor());
-        holder.mTittle.setText( reunion.getTittle() + " - " + reunion.getHeures());
+        holder.mTittle.setText( reunion.getTittle() + " - " +HeureMinutes.format(reunion.getDate()));
         holder.mParticipant.setText(reunion.getParticipantMail(reunion.getParticipantPresent()));
     }
 

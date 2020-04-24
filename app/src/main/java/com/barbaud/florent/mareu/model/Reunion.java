@@ -52,8 +52,8 @@ public class Reunion {
         ParticipantPresent = participantPresent;
     }
 
-    public Calendar getDate(){
-        return Date;
+    public java.util.Date getDate(){
+        return Date.getTime();
     }
 
     public String getJourMois(){
