@@ -97,11 +97,10 @@
 
     <TextView
         android:id="@+id/activity_add_particpant_txt"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/activity_add_salle_spinner"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:drawableLeft="@drawable/ic_people_alt_24px"
         android:drawablePadding="20dp"
         android:text="Participant"
@@ -109,6 +108,15 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="20dp"/>
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/activity_add_particpant_txt"
+        app:layout_constraintBottom_toBottomOf="@id/activity_add_particpant_txt"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="15dp"
+        android:src="@drawable/ic_add_24px"
+        android:background="@color/colorPrimary"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/activity_add_receclerview"
