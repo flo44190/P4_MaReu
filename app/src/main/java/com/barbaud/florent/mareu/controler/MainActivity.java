@@ -2,8 +2,11 @@ package com.barbaud.florent.mareu.controler;
 
 import android.os.Bundle;
 
+import com.barbaud.florent.mareu.API.ReunionAPI;
+import com.barbaud.florent.mareu.API.ReunionApiService;
 import com.barbaud.florent.mareu.API.ReunionFictif;
 import com.barbaud.florent.mareu.R;
+import com.barbaud.florent.mareu.di.DI;
 import com.barbaud.florent.mareu.model.Reunion;
 import com.barbaud.florent.mareu.view.ReunionRecyclerViewAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -24,7 +27,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private List<Reunion> mReu = ReunionFictif.generateReunion();
+    private ReunionApiService mService;
+    private RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +36,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        DisplayReunion(mReu);
+        mService = DI.getReunionApiService();
 
         // Affichage du Recycler View
-        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.content_main_recyclerview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new ReunionRecyclerViewAdapter(mReu));
+        mRecyclerView = (RecyclerView) findViewById(R.id.content_main_recyclerview);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Floating Bouton vers Add Reunion
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -47,6 +50,18 @@ public class MainActivity extends AppCompatActivity {
                 AddReunion();
             }
         });
+    }
+
+    private void initList(){
+        List<Reunion> mReu = mService.getReunions();
+        DisplayReunion(mReu);
+        mRecyclerView.setAdapter(new ReunionRecyclerViewAdapter(mReu));
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        initList();
     }
 
     @Override
