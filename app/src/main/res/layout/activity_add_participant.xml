@@ -80,7 +80,7 @@
         app:layout_constraintTop_toBottomOf="@id/activity_participant_mail_edit"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="16dp"/>
+        android:layout_margin="30dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +17,8 @@ import android.widget.ImageView;
 
 import com.barbaud.florent.mareu.R;
 import com.barbaud.florent.mareu.model.Participant;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 public class AddParticipant extends AppCompatActivity {
 
@@ -26,6 +29,8 @@ public class AddParticipant extends AppCompatActivity {
     private ImageView mAvatar;
     private Button mSave;
     private ImageButton mBack;
+
+    public static final String BUNDLE_EXTRA_PARTICIPANT = "BUNDLE_EXTRA_PARTICIPANT";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,9 @@ public class AddParticipant extends AppCompatActivity {
         mAvatar = findViewById(R.id.activity_participant_avatar_img);
         mSave = findViewById(R.id.activity_participant_save_btn);
         mBack = findViewById(R.id.activity_participant_back_btn);
+        String Avatar = "https://i.pravatar.cc/150?u="+ System.currentTimeMillis();
+        Glide.with(this).load(Avatar).placeholder(R.drawable.ic_people_alt_24px)
+                .apply(RequestOptions.circleCropTransform()).into(mAvatar);
 
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,20 +58,17 @@ public class AddParticipant extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Participant participant = new Participant(
-                        System.currentTimeMillis(),
-                        "https://i.pravatar.cc/150?u="+ System.currentTimeMillis(),
+                        System.currentTimeMillis(),Avatar,
                         mName.getText().toString(),
                         mFonction.getText().toString(),
                         mPhone.getText().toString(),
                         mMail.getText().toString()
                 );
+                Intent intent = new Intent();
+                intent.putExtra(BUNDLE_EXTRA_PARTICIPANT, participant);
+                setResult(RESULT_OK, intent);
+                finish();
             }
         });
-    }
-    // Navigation vers cette activité
-    public static void navigate(FragmentActivity Context activity;
-            activity) {
-        Intent intent = new Intent(activity, AddReunion.class);
-        ActivityCompat.startActivity(activity, intent, null);
     }
 }

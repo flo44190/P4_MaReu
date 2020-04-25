@@ -108,7 +108,9 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="20dp"/>
+
     <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/activit_add_participant_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@id/activity_add_particpant_txt"

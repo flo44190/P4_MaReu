@@ -1,5 +1,6 @@
 package com.barbaud.florent.mareu.controler;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -12,6 +13,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -37,6 +39,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class AddReunion extends AppCompatActivity {
@@ -46,6 +49,7 @@ public class AddReunion extends AppCompatActivity {
     private TextView mHoraire;
     private ImageButton mBack;
     private Button mSave;
+    private ImageButton mAddParticipant;
     private DatePickerDialog mDatePickerDialog;
     private TimePickerDialog mTimePickerDialog;
     private static ReunionApiService mService;
@@ -56,11 +60,12 @@ public class AddReunion extends AppCompatActivity {
     int mHour = Date.get(Calendar.HOUR);
     int mMinute = Date.get(Calendar.MINUTE);
     Salle mSalle;
+    private static final int ADD_PARTICIPANT_REQUEST_CODE = 42;
+    List<Participant> mParticipantList = new ArrayList<>();
+    RecyclerView mRecyclerView;
+    Participant mParticipant;
 
-    List<Participant> mParticipantList = Arrays.asList(
-            new Participant(5,"https://i.pravatar.cc/400?img=14", "Florent", "Developer",
-                    "06 12 30 24 10", "florent@lamzone.com")
-    );
+
 
     @Override
     protected void onCreate(Bundle SaveInstanceState){
@@ -72,13 +77,13 @@ public class AddReunion extends AppCompatActivity {
         mSave = findViewById(R.id.activity_add_save_btn);
         mDate = findViewById(R.id.activity_add_date_txt);
         mTittle = findViewById(R.id.activity_add_tittle_edit);
+        mAddParticipant = findViewById(R.id.activit_add_participant_btn);
         mHoraire = findViewById(R.id.activity_add_horaire_txt);
         mBack = findViewById(R.id.activity_add_back_btn);
         displayDateTime();
 
-        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.activity_add_receclerview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new ParticipantRecyclerViewAdapter(mParticipantList));
+        mRecyclerView = (RecyclerView) findViewById(R.id.activity_add_receclerview);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         Spinner spinner = (Spinner) findViewById(R.id.activity_add_salle_spinner);
         spinner.setAdapter(new ArrayAdapter<Salle>(this, android.R.layout.simple_list_item_1,Salle.values()));
@@ -111,7 +116,8 @@ public class AddReunion extends AppCompatActivity {
                mTimePickerDialog = new TimePickerDialog(AddReunion.this, new TimePickerDialog.OnTimeSetListener() {
                    @Override
                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                       Date.set(mYear,mMonth,mDay,hourOfDay,minute);
+                       Date.set(Calendar.HOUR, hourOfDay);
+                       Date.set(Calendar.MINUTE, minute);
                        displayDateTime();
                    }
                }, mHour, mMinute,true);
@@ -133,6 +139,13 @@ public class AddReunion extends AppCompatActivity {
                 finish();
             }
         });
+        mAddParticipant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent AddParticipant = new Intent(AddReunion.this, AddParticipant.class);
+                startActivityForResult(AddParticipant,ADD_PARTICIPANT_REQUEST_CODE);
+            }
+        });
     }
     // Affiche de la date et de l'heure
     private void displayDateTime (){
@@ -140,6 +153,24 @@ public class AddReunion extends AppCompatActivity {
         SimpleDateFormat HHmm = new SimpleDateFormat("HH:mm");
         mDate.setText(ddMMyyy.format(Date.getTime()));
         mHoraire.setText(HHmm.format(Date.getTime()));
+    }
+
+    private void initList(){
+        mRecyclerView.setAdapter(new ParticipantRecyclerViewAdapter(mParticipantList));
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        initList();
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (ADD_PARTICIPANT_REQUEST_CODE == requestCode && RESULT_OK == resultCode){
+            mParticipant = data.getParcelableExtra(AddParticipant.BUNDLE_EXTRA_PARTICIPANT);
+            mParticipantList.add(mParticipant);
+        }
     }
 
     // Navigation vers cette activité
