@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.barbaud.florent.mareu.R;
 import com.barbaud.florent.mareu.model.Participant;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.Collections;
 import java.util.List;
@@ -41,7 +43,12 @@ public class ParticipantRecyclerViewAdapter extends RecyclerView.Adapter<Partici
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Participant participant = mParticipants.get(position);
+        Glide.with(holder.mAvatar.getContext())
+                .load(participant.getAvatarUrl())
+                .apply(RequestOptions.circleCropTransform())
+                .into(holder.mAvatar);
         holder.mName.setText(participant.getName());
+        holder.mMail.setText(participant.getMail());
     }
 
     @Override
@@ -55,6 +62,8 @@ public class ParticipantRecyclerViewAdapter extends RecyclerView.Adapter<Partici
         ImageView mAvatar;
         @BindView(R.id.fragment_participant_name_txt)
         TextView mName;
+        @BindView(R.id.fragment_participant_mail_txt)
+        TextView mMail;
         @BindView(R.id.fragment_participant_delete_btn)
         ImageButton mDelette;
 

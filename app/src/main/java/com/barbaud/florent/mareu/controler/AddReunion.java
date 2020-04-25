@@ -58,14 +58,15 @@ public class AddReunion extends AppCompatActivity {
     Salle mSalle;
 
     List<Participant> mParticipantList = Arrays.asList(
-            new Participant(10,"test","test","test","test","test")
+            new Participant(5,"https://i.pravatar.cc/400?img=14", "Florent", "Developer",
+                    "06 12 30 24 10", "florent@lamzone.com")
     );
 
     @Override
     protected void onCreate(Bundle SaveInstanceState){
         super.onCreate(SaveInstanceState);
         mService = DI.getReunionApiService();
-        displayDateTime();
+
 
         setContentView(R.layout.activity_add_reunion);
         mSave = findViewById(R.id.activity_add_save_btn);
@@ -73,6 +74,7 @@ public class AddReunion extends AppCompatActivity {
         mTittle = findViewById(R.id.activity_add_tittle_edit);
         mHoraire = findViewById(R.id.activity_add_horaire_txt);
         mBack = findViewById(R.id.activity_add_back_btn);
+        displayDateTime();
 
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.activity_add_receclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
