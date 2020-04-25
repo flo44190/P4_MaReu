@@ -14,9 +14,12 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.barbaud.florent.mareu.R;
+import com.barbaud.florent.mareu.events.DeleteReunionEvent;
 import com.barbaud.florent.mareu.model.Participant;
 import com.barbaud.florent.mareu.model.Reunion;
 import com.bumptech.glide.Glide;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -60,6 +63,7 @@ public class ReunionRecyclerViewAdapter extends RecyclerView.Adapter<ReunionRecy
         holder.mSalle.setBackgroundResource(reunion.getSallecolor());
         holder.mTittle.setText( reunion.getTittle() + " - " +HeureMinutes.format(reunion.getDate()));
         holder.mParticipant.setText(reunion.getParticipantMail(reunion.getParticipantPresent()));
+        holder.mDelette.setOnClickListener(v -> EventBus.getDefault().post(new DeleteReunionEvent(reunion)));
     }
 
     @Override

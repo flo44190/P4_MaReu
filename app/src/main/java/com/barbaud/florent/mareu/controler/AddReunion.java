@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -29,11 +30,15 @@ import android.widget.Toast;
 import com.barbaud.florent.mareu.API.ReunionApiService;
 import com.barbaud.florent.mareu.R;
 import com.barbaud.florent.mareu.di.DI;
+import com.barbaud.florent.mareu.events.DeleteParticipantEvent;
 import com.barbaud.florent.mareu.model.Participant;
 import com.barbaud.florent.mareu.model.Reunion;
 import com.barbaud.florent.mareu.model.Salle;
 import com.barbaud.florent.mareu.view.ParticipantRecyclerViewAdapter;
 import com.google.android.material.snackbar.Snackbar;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -54,9 +59,9 @@ public class AddReunion extends AppCompatActivity {
     private TimePickerDialog mTimePickerDialog;
     private static ReunionApiService mService;
     Calendar Date = Calendar.getInstance();
-    int mYear = Date.get(Calendar.YEAR); // current year
-    int mMonth = Date.get(Calendar.MONTH); // current month
-    int mDay = Date.get(Calendar.DAY_OF_MONTH); // current day
+    int mYear = Date.get(Calendar.YEAR);
+    int mMonth = Date.get(Calendar.MONTH);
+    int mDay = Date.get(Calendar.DAY_OF_MONTH);
     int mHour = Date.get(Calendar.HOUR);
     int mMinute = Date.get(Calendar.MINUTE);
     Salle mSalle;
@@ -72,7 +77,6 @@ public class AddReunion extends AppCompatActivity {
         super.onCreate(SaveInstanceState);
         mService = DI.getReunionApiService();
 
-
         setContentView(R.layout.activity_add_reunion);
         mSave = findViewById(R.id.activity_add_save_btn);
         mDate = findViewById(R.id.activity_add_date_txt);
@@ -82,9 +86,12 @@ public class AddReunion extends AppCompatActivity {
         mBack = findViewById(R.id.activity_add_back_btn);
         displayDateTime();
 
+        // Config RecyclerView Participant
         mRecyclerView = (RecyclerView) findViewById(R.id.activity_add_receclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setAdapter(new ParticipantRecyclerViewAdapter(mParticipantList));
 
+        // Spinner choix de la salle
         Spinner spinner = (Spinner) findViewById(R.id.activity_add_salle_spinner);
         spinner.setAdapter(new ArrayAdapter<Salle>(this, android.R.layout.simple_list_item_1,Salle.values()));
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -95,6 +102,7 @@ public class AddReunion extends AppCompatActivity {
             }
         });
 
+        // Choix de la date avec DatePicker
         mDate.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -110,6 +118,8 @@ public class AddReunion extends AppCompatActivity {
                 mDatePickerDialog.show();
             }
         });
+
+        // Choix de l'heure avec TimePicker
         mHoraire.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
@@ -124,12 +134,16 @@ public class AddReunion extends AppCompatActivity {
                mTimePickerDialog.show();
            }
        });
+
+        // Retour a l'activité Precedante
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+
+        // Création d'une nouvelle reunion
         mSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,6 +153,8 @@ public class AddReunion extends AppCompatActivity {
                 finish();
             }
         });
+
+        // Bouton pour ajout d'un Participant
         mAddParticipant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -147,6 +163,19 @@ public class AddReunion extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
     // Affiche de la date et de l'heure
     private void displayDateTime (){
         SimpleDateFormat ddMMyyy = new SimpleDateFormat("dd MMM yyyy");
@@ -155,16 +184,7 @@ public class AddReunion extends AppCompatActivity {
         mHoraire.setText(HHmm.format(Date.getTime()));
     }
 
-    private void initList(){
-        mRecyclerView.setAdapter(new ParticipantRecyclerViewAdapter(mParticipantList));
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        initList();
-    }
-
+    // Recupération de l'utilisateur créer et ajout a la list des Participant
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (ADD_PARTICIPANT_REQUEST_CODE == requestCode && RESULT_OK == resultCode){
@@ -179,4 +199,11 @@ public class AddReunion extends AppCompatActivity {
         ActivityCompat.startActivity(activity, intent, null);
     }
 
+    // Suppression d'un participant avec EventBus
+    @Subscribe
+    public void onEvent(DeleteParticipantEvent event) {
+        mParticipantList.remove(event.mParticipant);
+        Log.i("DATA", "onDeleteParticipant: "+event.mParticipant+ "Supprimé");
+        mRecyclerView.setAdapter(new ParticipantRecyclerViewAdapter(mParticipantList));
+    }
 }

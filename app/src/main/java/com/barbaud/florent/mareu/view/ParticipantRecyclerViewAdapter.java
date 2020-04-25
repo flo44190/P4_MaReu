@@ -11,9 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.barbaud.florent.mareu.R;
+import com.barbaud.florent.mareu.events.DeleteParticipantEvent;
 import com.barbaud.florent.mareu.model.Participant;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Collections;
 import java.util.List;
@@ -49,6 +52,7 @@ public class ParticipantRecyclerViewAdapter extends RecyclerView.Adapter<Partici
                 .into(holder.mAvatar);
         holder.mName.setText(participant.getName());
         holder.mMail.setText(participant.getMail());
+        holder.mDelette.setOnClickListener(v -> EventBus.getDefault().post(new DeleteParticipantEvent(participant)));
     }
 
     @Override

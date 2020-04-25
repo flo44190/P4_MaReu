@@ -44,16 +44,20 @@ public class AddParticipant extends AppCompatActivity {
         mAvatar = findViewById(R.id.activity_participant_avatar_img);
         mSave = findViewById(R.id.activity_participant_save_btn);
         mBack = findViewById(R.id.activity_participant_back_btn);
+
+        // Generation d'un avatar
         String Avatar = "https://i.pravatar.cc/150?u="+ System.currentTimeMillis();
         Glide.with(this).load(Avatar).placeholder(R.drawable.ic_people_alt_24px)
                 .apply(RequestOptions.circleCropTransform()).into(mAvatar);
 
+        // retour activity Precedente
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+        // Création d'un nouveau Participant
         mSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
