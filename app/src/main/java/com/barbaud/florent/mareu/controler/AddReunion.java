@@ -64,6 +64,7 @@ public class AddReunion extends AppCompatActivity {
     int mDay = Date.get(Calendar.DAY_OF_MONTH);
     int mHour = Date.get(Calendar.HOUR);
     int mMinute = Date.get(Calendar.MINUTE);
+    Date CurrentDate = new Date();
     Salle mSalle;
     private static final int ADD_PARTICIPANT_REQUEST_CODE = 42;
     List<Participant> mParticipantList = new ArrayList<>();
@@ -89,7 +90,6 @@ public class AddReunion extends AppCompatActivity {
         // Config RecyclerView Participant
         mRecyclerView = (RecyclerView) findViewById(R.id.activity_add_receclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(new ParticipantRecyclerViewAdapter(mParticipantList));
 
         // Spinner choix de la salle
         Spinner spinner = (Spinner) findViewById(R.id.activity_add_salle_spinner);
@@ -148,9 +148,13 @@ public class AddReunion extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Reunion mReunions = new Reunion(mSalle, mTittle.getText().toString(), Date, mParticipantList);
+                if (CurrentDate.compareTo(mReunions.getDate())>=0) {
+                    Toast.makeText(getApplicationContext(), "La date est incorrect",Toast.LENGTH_SHORT).show();
+                }
+                else {
                 mService.createReunion(mReunions);
                 Toast.makeText(getApplicationContext(), "Reunion Créer", Toast.LENGTH_SHORT).show();
-                finish();
+                finish();}
             }
         });
 
@@ -162,6 +166,12 @@ public class AddReunion extends AppCompatActivity {
                 startActivityForResult(AddParticipant,ADD_PARTICIPANT_REQUEST_CODE);
             }
         });
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        mRecyclerView.setAdapter(new ParticipantRecyclerViewAdapter(mParticipantList));
     }
 
     @Override
