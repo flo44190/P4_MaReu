@@ -2,9 +2,7 @@ package com.barbaud.florent.mareu.controler;
 
 import android.os.Bundle;
 
-import com.barbaud.florent.mareu.API.ReunionAPI;
 import com.barbaud.florent.mareu.API.ReunionApiService;
-import com.barbaud.florent.mareu.API.ReunionFictif;
 import com.barbaud.florent.mareu.R;
 import com.barbaud.florent.mareu.di.DI;
 import com.barbaud.florent.mareu.events.DeleteReunionEvent;
@@ -93,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
        switch (item.getItemId()){
            case R.id.action_filter :
                Toast.makeText(getApplicationContext(), "Action de filtre", Toast.LENGTH_SHORT).show();
-               return true;
        }
         return super.onOptionsItemSelected(item);
     }

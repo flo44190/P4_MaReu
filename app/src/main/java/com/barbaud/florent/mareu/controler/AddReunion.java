@@ -1,6 +1,5 @@
 package com.barbaud.florent.mareu.controler;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -13,7 +12,6 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -38,14 +36,12 @@ import com.barbaud.florent.mareu.model.Participant;
 import com.barbaud.florent.mareu.model.Reunion;
 import com.barbaud.florent.mareu.model.Salle;
 import com.barbaud.florent.mareu.view.ParticipantRecyclerViewAdapter;
-import com.google.android.material.snackbar.Snackbar;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
