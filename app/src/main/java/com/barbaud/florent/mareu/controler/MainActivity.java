@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -83,23 +84,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_filter) {
-            return true;
-        }
-
+       switch (item.getItemId()){
+           case R.id.action_filter :
+               Toast.makeText(getApplicationContext(), "Action de filtre", Toast.LENGTH_SHORT).show();
+               return true;
+       }
         return super.onOptionsItemSelected(item);
     }
 
@@ -114,12 +109,8 @@ public class MainActivity extends AppCompatActivity {
         int n = 0;
         for (int i = 0; i<items.size(); i++){
             if (date.compareTo(items.get(i).getDate())>=0){
-                Log.i("DATA", "Suppresion de" +items.get(i).getTittle());
                 items.remove(items.get(i));
                 i--;
-            }
-            else {
-                Log.i("DATA", "Pas toucher: " +items.get(i).getTittle());
             }
         }
     }
