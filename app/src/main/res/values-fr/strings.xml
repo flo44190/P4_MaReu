@@ -1,22 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">MaReu</string>
-    <string name="action_filter" translatable="false">Filter</string>
-    <string name="first_fragment_label" translatable="false">First Fragment</string>
-    <string name="addReunion" translatable="false">Add Reunion</string>
     <string name="action_save">Enregistrer</string>
     <string name="Tittle_Reu">Ajouter un titre</string>
     <string name="Date">Date</string>
     <string name="Time">Horaires</string>
-    <string name="Room">Salle : </string>
+    <string name="Room">"Salle : "</string>
     <string name="Participant">Participant</string>
     <string name="Name">Nom Prénom</string>
     <string name="Function">Fonction</string>
     <string name="Phone">Téléphone</string>
     <string name="Mail">Mail</string>
     <string name="Tittle">Titre</string>
-    <string name="Error_Mail">Adresse e-mail invalide</string>
-    <string name="Error_Participant">Aucun Participant</string>
+    <string name="Error_Mail">Adresse E-mail invalide</string>
+    <string name="Error_Participant">Aucun participant</string>
     <string name="Error_Date">Date invalide</string>
     <string name="Reunion_Okay">Reunion créer</string>
-
 </resources>

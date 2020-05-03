@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_save">Save</string>
+    <string name="Tittle_Reu">Add Tittle</string>
+    <string name="Date">Date</string>
+    <string name="Time">Time</string>
+    <string name="Room">"Room : "</string>
+    <string name="Name">Name</string>
+    <string name="Participant">Participant</string>
+    <string name="Function">Function</string>
+    <string name="Phone">Phone</string>
+    <string name="Mail">Mail</string>
+    <string name="Tittle">Tittle</string>
+    <string name="Reunion_Okay">reunion create</string>
+    <string name="Error_Date">invalid date</string>
+    <string name="Error_Mail">invalid mail</string>
+    <string name="Error_Participant">no participant</string>
+</resources>
