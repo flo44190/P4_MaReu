@@ -32,7 +32,6 @@ public class ParticipantFictif {
     );
 
     public static List<Participant> generateParticipant() {
-        Log.i("DATA", "ParticipantFictif : generate Participant");
         return new ArrayList<>(PARTICIPANT_LIST);
     }
 }

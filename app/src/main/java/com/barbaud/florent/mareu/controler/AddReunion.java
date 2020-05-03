@@ -14,6 +14,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,6 +24,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -70,6 +73,7 @@ public class AddReunion extends AppCompatActivity {
     List<Participant> mParticipantList = new ArrayList<>();
     RecyclerView mRecyclerView;
     Participant mParticipant;
+    private ImageView mSalleColor;
 
 
 
@@ -85,7 +89,11 @@ public class AddReunion extends AppCompatActivity {
         mAddParticipant = findViewById(R.id.activit_add_participant_btn);
         mHoraire = findViewById(R.id.activity_add_horaire_txt);
         mBack = findViewById(R.id.activity_add_back_btn);
+        mSalleColor = findViewById(R.id.activity_add_salle_img);
         displayDateTime();
+
+        // Désactivation du button
+        mSave.setEnabled(false);
 
         // Config RecyclerView Participant
         mRecyclerView = (RecyclerView) findViewById(R.id.activity_add_receclerview);
@@ -97,8 +105,23 @@ public class AddReunion extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 mSalle = Salle.values()[pos];
+                mSalleColor.setBackgroundResource(mSalle.getColor());
             }
             public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        // activation du button des qu'un titre est ecrit
+        mTittle.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mSave.setEnabled(s.length() >0);
             }
         });
 
@@ -148,12 +171,17 @@ public class AddReunion extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Reunion mReunions = new Reunion(mSalle, mTittle.getText().toString(), Date, mParticipantList);
-                if (CurrentDate.compareTo(mReunions.getDate())>=0) {
-                    Toast.makeText(getApplicationContext(), "La date est incorrect",Toast.LENGTH_SHORT).show();
+                if (CurrentDate.compareTo(mReunions.getDate())>=0 || mParticipantList.size()==0) {
+                    if (CurrentDate.compareTo(mReunions.getDate())>=0) {
+                        Toast.makeText(getApplicationContext(), R.string.Error_Date,Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), R.string.Error_Participant,Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else {
                 mService.createReunion(mReunions);
-                Toast.makeText(getApplicationContext(), "Reunion Créer", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.Reunion_Okay, Toast.LENGTH_SHORT).show();
                 finish();}
             }
         });
@@ -186,7 +214,7 @@ public class AddReunion extends AppCompatActivity {
         EventBus.getDefault().unregister(this);
     }
 
-    // Affiche de la date et de l'heure
+    // Affichage de la date et de l'heure
     private void displayDateTime (){
         SimpleDateFormat ddMMyyy = new SimpleDateFormat("dd MMM yyyy");
         SimpleDateFormat HHmm = new SimpleDateFormat("HH:mm");

@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/fragment_participant_avatar_img"
         android:layout_width="30dp"
@@ -12,6 +13,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_margin="15dp"/>
+
     <TextView
         android:id="@+id/fragment_participant_name_txt"
         android:layout_width="wrap_content"
@@ -20,7 +22,8 @@
         app:layout_constraintStart_toEndOf="@id/fragment_participant_avatar_img"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginLeft="15dp"
-        android:text="Participant1"/>
+        android:text="@string/Participant"/>
+
     <TextView
         android:id="@+id/fragment_participant_mail_txt"
         android:layout_width="wrap_content"
@@ -29,7 +32,7 @@
         app:layout_constraintStart_toEndOf="@id/fragment_participant_name_txt"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginLeft="15dp"
-        android:text="Participant1"
+        android:text="@string/Mail"
         android:textStyle="italic"/>
 
     <androidx.appcompat.widget.AppCompatImageButton

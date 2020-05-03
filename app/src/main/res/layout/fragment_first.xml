@@ -15,21 +15,24 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:background="@color/colorPrimary"
+        android:src="@drawable/circle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/Fragment_first_Date_txt"
-        android:layout_width="50dp"
+        android:layout_width="45dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/Fragment_first_Salle_img"
         app:layout_constraintBottom_toBottomOf="@id/Fragment_first_Salle_img"
+        app:layout_constraintTop_toTopOf="@id/Fragment_first_Salle_img"
+        app:layout_constraintEnd_toEndOf="@id/Fragment_first_Salle_img"
         android:paddingBottom="2dp"
         android:textColor="#ffffff"
-        android:text="21/01"
+        android:text="@string/Date"
         android:background="#33000000"
-        android:textAlignment="center"/>
+        android:gravity="center"/>
 
     <TextView
         android:id="@+id/Fragment_first_Tittle_txt"
@@ -39,7 +42,7 @@
         app:layout_constraintStart_toEndOf="@id/Fragment_first_Salle_img"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="5dp"
-        android:text="Tittle"
+        android:text="@string/Tittle"
         android:textStyle="bold"/>
     <TextView
         android:id="@+id/Fragment_first_Participant_txt"
@@ -50,7 +53,7 @@
         app:layout_constraintStart_toEndOf="@id/Fragment_first_Salle_img"
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="5dp"
-        android:text="Participant 1"/>
+        android:text="@string/Participant"/>
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/Fragment_first_delette_btn"
